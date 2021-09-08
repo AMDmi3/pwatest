@@ -1,12 +1,13 @@
-var cacheName = 'ghapp';
+'use strict';
+
+var cacheName = 'pwatest';
 var filesToCache = [
   '/',
-  '/index.html',
   '/js/main.js'
 ];
 
-self.addEventListener('install', function(e) {
-	e.waitUntil(
+self.addEventListener('install', ev => {
+	ev.waitUntil(
 		caches.open(cacheName)
 			.then(cache => {
 				return cache.addAll(filesToCache);
@@ -15,7 +16,7 @@ self.addEventListener('install', function(e) {
 	self.skipWaiting();
 });
 
-self.addEventListener('fetch', function(e) {
+self.addEventListener('fetch', ev => {
 	e.respondWith(
 		caches.match(e.request)
 			.then(response => {
